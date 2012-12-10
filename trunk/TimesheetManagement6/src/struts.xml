@@ -11,6 +11,27 @@
         value="ApplicationResources" />
  
     <package name="default" extends="struts-default" namespace="/">
-  
+
+
+	<result-types>
+
+		<result-type name="tiles"
+			class="org.apache.struts2.views.tiles.TilesResult" />
+
+	</result-types>
+		
+		  <action name="admin"
+            class="edu.iiitb.timesheet.action.Login">
+            <result name="initial_entry" type="tiles">admin</result>
+            <result name="success" type="redirectAction">Home</result>
+            <result name="error" type="tiles">admin</result>
+        </action>
+        
+         <action name="Home"
+            class="edu.iiitb.timesheet.action.HomeAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="tiles">home</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
     </package>
 </struts>
