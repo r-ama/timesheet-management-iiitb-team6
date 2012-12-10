@@ -45,10 +45,7 @@ public class DB {
 		return db;
 	}
 
-	public static void main(String[] args) {
-		// db.createDatabase("bookstore");
-		db.runScript(RuntimeSettings.scriptSql);
-	}
+	
 
 	/**
 	 * create a database; drops it first if it exists
