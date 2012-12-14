@@ -7,7 +7,7 @@
 <head>
 <style type="text/css">
 table.pretty {
-  margin: 1em 1em 1em 2em;
+  margin: 10em 10em 10em 10em;
   background: whitesmoke;
   border-collapse: collapse;
   width=100%;
@@ -31,15 +31,19 @@ table.pretty caption {
 </head>
 <body>
 <h3 align="left" >Welcome,<s:property value="username"/></h3>
-<h1 align="center">Project List</h1>
+
 <s:form action="" method="POST"> 
 <table class="pretty">
+<tr>
+<th> <h1>Project Allocation List</h1></th>
+</tr>
 <tr> 
    
     <th><h2>Project</h2></th>
     <th><h2>Allocation Start Date</h2></th>
     <th><h2>Allocation End Date</h2></th>
     <th><h2>Role</h2></th>
+    <th><h2>Timesheet</h2>
 </tr>
 
 
@@ -49,7 +53,7 @@ table.pretty caption {
 <td><h3> <s:property value="startDate"/></h3> </td>
 <td><h3> <s:property value="endDate"/></h3></td>
 <td><h3> <s:property value="role"/></h3></td>
-
+<td><h3> <a href="timesheet?projectid=<s:property value="projectid"/>&projectname=<s:property value="projectname"/>">View/Edit Timesheet</a></h3> </td>
  
 </tr>
 </s:iterator>
