@@ -15,6 +15,7 @@ body {
 	
 	font:12px verdana, sans-serif;
 	color:#000;
+	background: "background.jpg" no-repeat top left fixed;
 	}
 
 /*Our full length header. 
@@ -57,6 +58,7 @@ If you prefer you could right or left align it.*/
 	
 .left p, .right p {
 	padding:10px;
+	width=2000px;
 	}
 
 </style>

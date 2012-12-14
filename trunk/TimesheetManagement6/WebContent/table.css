@@ -1,8 +1,6 @@
-/* 
-	Blue Dream
-	Written by Teylor Feliz  http://www.admixweb.com
-*/
-
+body {
+background: "background.jpg" no-repeat top left fixed;
+}
 
 table { background:#D3E4E5;
  border:1px solid gray;
