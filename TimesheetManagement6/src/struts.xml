@@ -33,5 +33,66 @@
             <result name="success" type="tiles">home</result>
             <result name="error" type="redirectAction">admin</result>
         </action>
+        
+        <action name="timesheet"
+            class="edu.iiitb.timesheet.action.TimesheetAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="tiles">timesheet</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
+         <action name="timesheetsave"
+            class="edu.iiitb.timesheet.action.TimesheetSaveAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="redirectAction">
+            <param name="actionName">timesheet</param>
+         	  <param name="projectid">%{projectid}</param>
+              <param name="projectname">%{projectname}</param>
+            </result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
+        <action name="timesheetapprove"
+            class="edu.iiitb.timesheet.action.TimesheetApprovalAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="tiles">timesheetapprove</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
+        
+        <action name="timesheetapsave"
+            class="edu.iiitb.timesheet.action.TimesheetApprovalSaveAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="redirectAction">timesheetapprove</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
+         <action name="allocationsave"
+            class="edu.iiitb.timesheet.action.AllocationSaveAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="redirectAction">allocation</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+         <action name="allocation"
+            class="edu.iiitb.timesheet.action.ProjectAllocationAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="tiles">allocation</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
+          <action name="createallocation"
+            class="edu.iiitb.timesheet.action.CreateAllocationAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="tiles">createallocation</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
+        <action name="logout"
+            class="edu.iiitb.timesheet.action.LogoutAction">
+            <result name="initial_entry" type="redirectAction">admin</result>
+            <result name="success" type="tiles">admin</result>
+            <result name="error" type="redirectAction">admin</result>
+        </action>
+        
     </package>
 </struts>
