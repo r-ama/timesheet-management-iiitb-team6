@@ -49,8 +49,8 @@ public class HomeAction extends ActionSupport {
 		{
 			username = session.get("username")+"";
 			userid = session.get("userid")+"";
-			String query ="select u.userid,u.username,p.projectid,p.projectname,a.allocation_start_date,a.allocation_end_date,r.rolename from user u,project p,allocation a,rolemst r where u.userid ="+userid;
-            query+=" and u.userid = a.userid";
+			String query ="select u.empId,u.empName,p.projectid,p.projectname,a.allocation_start_date,a.allocation_end_date,r.rolename from employee u,project p,allocation a,rolemst r where u.empId ="+userid;
+            query+=" and u.empId = a.empId";
             query+=" AND p.projectid = a.projectid";
             query+=" and a.roleid = r.roleid";
             query+=" and a.allocation_end_date >SYSDATE()";
