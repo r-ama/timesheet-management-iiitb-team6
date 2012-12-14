@@ -56,7 +56,7 @@ public class Login extends ActionSupport {
 			// first time screen
 		    return "initial_entry";
         }
-        String query = "select userid from user where username = '"+username+"' and pass='"+password+"'";
+        String query = "select empId from employee where empName = '"+username+"' and empPassword='"+password+"'";
         System.out.println("query is:"+query);
         ResultSet rs=DB.readFromBmtcDB(query);
         try
