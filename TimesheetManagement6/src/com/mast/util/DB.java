@@ -433,7 +433,9 @@ public class DB {
 				isSeekingConnectionFirstTime = false;
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
+					
 				} catch (ClassNotFoundException ex) {
+					ex.printStackTrace();
 					MyLog.myCatch("/java", 162, ex);
 				}
 			}
@@ -444,6 +446,7 @@ public class DB {
 			con = DriverManager.getConnection(connectionUrl,
 					RuntimeSettings.dbUserID, RuntimeSettings.dbPassword);
 		} catch (SQLException ex) {
+			ex.printStackTrace();
 			MyLog.myCatch("/java", 217, ex);
 		}
 		activeConnections++;
