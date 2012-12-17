@@ -5,6 +5,27 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
+<style type="text/css">
+table.pretty {
+  margin: 10em 10em 10em 10em;
+  background: whitesmoke;
+  border-collapse: collapse;
+  width=100%;
+  align="center";
+}
+table.pretty th, table.pretty td {
+  border: 1px silver solid;
+  padding: 0.2em;
+}
+table.pretty th {
+  background: gainsboro;
+  text-align: left;
+}
+table.pretty caption {
+  margin-left: inherit;
+  margin-right: inherit;
+}
+</style>
 <script language="javascript" type="text/javascript" src="datetimepicker.js"></script>
 <script language="javascript" type="text/javascript">
  function refresh()

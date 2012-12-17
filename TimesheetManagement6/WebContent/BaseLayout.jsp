@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <style>
   h1, p, body, html {
