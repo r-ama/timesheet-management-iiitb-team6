@@ -2,97 +2,113 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
- 
+
 <struts>
-    <constant name="struts.enable.DynamicMethodInvocation"
-        value="false" />
-    <constant name="struts.devMode" value="false" />
-    <constant name="struts.custom.i18n.resources"
-        value="ApplicationResources" />
- 
-    <package name="default" extends="struts-default" namespace="/">
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+
+	<package name="default" extends="struts-default" namespace="/">
 
 
-	<result-types>
+		<result-types>
 
-		<result-type name="tiles"
-			class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
 
-	</result-types>
+		</result-types>
+
+		<action name="admin" class="edu.iiitb.timesheet.action.Login">
+			<result name="initial_entry" type="tiles">admin</result>
+			<result name="success" type="redirectAction">Home</result>
+			<result name="error" type="tiles">admin</result>
+		</action>
+
+		<action name="Home" class="edu.iiitb.timesheet.action.HomeAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">home</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="timesheet" class="edu.iiitb.timesheet.action.TimesheetAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">timesheet</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="timesheetsave" class="edu.iiitb.timesheet.action.TimesheetSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">timesheet</param>
+				<param name="projectid">%{projectid}</param>
+				<param name="projectname">%{projectname}</param>
+			</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="timesheetapprove"
+			class="edu.iiitb.timesheet.action.TimesheetApprovalAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">timesheetapprove</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+
+		<action name="timesheetapsave"
+			class="edu.iiitb.timesheet.action.TimesheetApprovalSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="redirectAction">timesheetapprove</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="allocationsave" class="edu.iiitb.timesheet.action.AllocationSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="redirectAction">allocation</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		<action name="allocation"
+			class="edu.iiitb.timesheet.action.ProjectAllocationAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">allocation</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="createallocation"
+			class="edu.iiitb.timesheet.action.CreateAllocationAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">createallocation</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="logout" class="edu.iiitb.timesheet.action.LogoutAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">admin</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+
+		<action name="createproject" class="edu.iiitb.timesheet.action.LogoutAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">createproject</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
 		
-		  <action name="admin"
-            class="edu.iiitb.timesheet.action.Login">
-            <result name="initial_entry" type="tiles">admin</result>
-            <result name="success" type="redirectAction">Home</result>
-            <result name="error" type="tiles">admin</result>
-        </action>
-        
-         <action name="Home"
-            class="edu.iiitb.timesheet.action.HomeAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="tiles">home</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-        <action name="timesheet"
-            class="edu.iiitb.timesheet.action.TimesheetAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="tiles">timesheet</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-         <action name="timesheetsave"
-            class="edu.iiitb.timesheet.action.TimesheetSaveAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="redirectAction">
-            <param name="actionName">timesheet</param>
-         	  <param name="projectid">%{projectid}</param>
-              <param name="projectname">%{projectname}</param>
+		<action name="report" class="edu.iiitb.timesheet.action.ReportAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">report</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		
+		<action name="fileDownload" class="edu.iiitb.timesheet.action.DownloadAction">
+            <result type="stream" name="success">
+                <param name="inputName">fileInputStream</param>
+                <param name="contentType">application/octet-stream</param>
+                <param name="contentDisposition">attachment;filename=%{filename}</param>
+                <param name="bufferSize">4096</param>
+
             </result>
+            
             <result name="error" type="redirectAction">admin</result>
         </action>
-        
-        <action name="timesheetapprove"
-            class="edu.iiitb.timesheet.action.TimesheetApprovalAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="tiles">timesheetapprove</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-        
-        <action name="timesheetapsave"
-            class="edu.iiitb.timesheet.action.TimesheetApprovalSaveAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="redirectAction">timesheetapprove</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-         <action name="allocationsave"
-            class="edu.iiitb.timesheet.action.AllocationSaveAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="redirectAction">allocation</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-         <action name="allocation"
-            class="edu.iiitb.timesheet.action.ProjectAllocationAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="tiles">allocation</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-          <action name="createallocation"
-            class="edu.iiitb.timesheet.action.CreateAllocationAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="tiles">createallocation</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-        <action name="logout"
-            class="edu.iiitb.timesheet.action.LogoutAction">
-            <result name="initial_entry" type="redirectAction">admin</result>
-            <result name="success" type="tiles">admin</result>
-            <result name="error" type="redirectAction">admin</result>
-        </action>
-        
-    </package>
+
+	</package>
 </struts>
