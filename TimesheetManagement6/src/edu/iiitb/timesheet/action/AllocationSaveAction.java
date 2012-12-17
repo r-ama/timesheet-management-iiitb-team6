@@ -54,7 +54,7 @@ public class AllocationSaveAction extends ActionSupport {
 				}
 				if(projectAllocationBean.getAllocationId().equals("0"))
 				{
-					updateQuery = "insert into allocation(empId,projectId,allocation_start_date,allocation_end_date,roleId) values("+projectAllocationBean.getUserid()+","+projectAllocationBean.getProjectid()+",'"+startDate+"','"+endDate+"',"+projectAllocationBean.getRoleid()+")";
+					updateQuery = "insert into allocation(empId,projectId,allocation_start_date,allocation_end_date,roleId,superVisorId) values("+projectAllocationBean.getUserid()+","+projectAllocationBean.getProjectid()+",'"+startDate+"','"+endDate+"',"+projectAllocationBean.getRoleid()+","+projectAllocationBean.getSupervisorId()+")";
 					
 				}
 				
@@ -63,7 +63,8 @@ public class AllocationSaveAction extends ActionSupport {
 					updateQuery = "update allocation set projectId ="+ projectAllocationBean.getProjectid()+",";
 					updateQuery += "allocation_start_date ='"+startDate+"',";
 					updateQuery += "allocation_end_date = '"+endDate+"',";
-					updateQuery += "roleId="+projectAllocationBean.getRoleid();
+					updateQuery += "roleId="+projectAllocationBean.getRoleid()+",";
+					updateQuery += "supervisorId="+projectAllocationBean.getSupervisorId();
 					updateQuery +=" where allocationId="+projectAllocationBean.getAllocationId();
 					
 					
@@ -73,9 +74,7 @@ public class AllocationSaveAction extends ActionSupport {
 				
 				int rows =  DB.update(updateQuery);
 				 
-				updateQuery = "update employee e set e.supervisorId="+projectAllocationBean.getSupervisorId()+" where e.empId="+projectAllocationBean.getUserid();
-				 
-				rows= DB.update(updateQuery);
+				
 				
 				
 			}

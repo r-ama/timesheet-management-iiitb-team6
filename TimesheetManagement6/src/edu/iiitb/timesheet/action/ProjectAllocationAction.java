@@ -82,7 +82,7 @@ public class ProjectAllocationAction extends ActionSupport {
 			username = session.get("username")+"";
 			userid = session.get("userid")+"";
 		
-		String query = "select u.empId,u.empName,u.supervisorid,a.allocation_start_date,a.allocation_end_date,a.projectid,a.roleid,a.allocationId from employee u,allocation a where u.empId = a.empId";
+		String query = "select u.empId,u.empName,a.supervisorId,a.allocation_start_date,a.allocation_end_date,a.projectid,a.roleid,a.allocationId from employee u,allocation a where u.empId = a.empId";
 		
 		ResultSet rs=DB.readFromBmtcDB(query);
 		SimpleDateFormat sdf=new SimpleDateFormat("dd-MMM-yyyy");
