@@ -3,6 +3,13 @@ package edu.iiitb.timesheet.model;
 public class UserAllocation {
 	
 	private String userid;
+	private String supervisor;
+	public String getSupervisor() {
+		return supervisor;
+	}
+	public void setSupervisor(String supervisor) {
+		this.supervisor = supervisor;
+	}
 	public String getUserid() {
 		return userid;
 	}
