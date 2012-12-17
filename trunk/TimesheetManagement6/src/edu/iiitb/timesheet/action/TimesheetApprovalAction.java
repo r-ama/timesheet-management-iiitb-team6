@@ -117,8 +117,8 @@ public class TimesheetApprovalAction extends ActionSupport {
 			 timesheet = new ArrayList<TimesheetEntryBean>();
 			 ArrayList<String> userList = new ArrayList<String>();
 			 ArrayList<String> usernameList = new ArrayList<String>();
-			 String query = "select distinct empId,empName from employee u"; 
-				 	query+= " where u.supervisorid= "+userid;
+			 String query = "select distinct u.empId,u.empName from employee u,allocation a where u.empId=a.empId"; 
+				 	query+= " and a.supervisorId= "+userid;
 			 ResultSet rs=DB.readFromBmtcDB(query);
 			 while(rs.next())
 			 {
@@ -133,6 +133,7 @@ public class TimesheetApprovalAction extends ActionSupport {
 				 query = "select distinct p.projectid,p.projectname from project p,employee u,allocation a";
 				 		query+=" where p.projectid = a.projectid";
 				 		query+=" and a.empId ="+userList.get(j);
+				 		query+=" and a.supervisorId="+userid;
 				 		query+=" and a.allocation_end_date >NOW()";
 	    		
 	    	     rs= DB.readFromBmtcDB(query);

@@ -70,6 +70,8 @@ public class Login extends ActionSupport {
         }
         
         
+        
+        
         addActionError(getText("Incorrect user id and / or password!"));
         return "error";
         }
