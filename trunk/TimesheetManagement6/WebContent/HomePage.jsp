@@ -43,6 +43,7 @@ table.pretty caption {
     <th><h2>Allocation Start Date</h2></th>
     <th><h2>Allocation End Date</h2></th>
     <th><h2>Role</h2></th>
+     <th><h2>Supervisor Name</h2></th>
     <th><h2>Timesheet</h2>
 </tr>
 
@@ -53,6 +54,7 @@ table.pretty caption {
 <td><h3> <s:property value="startDate"/></h3> </td>
 <td><h3> <s:property value="endDate"/></h3></td>
 <td><h3> <s:property value="role"/></h3></td>
+<td><h3> <s:property value="supervisor"/></h3></td>
 <td><h3> <a href="timesheet?projectid=<s:property value="projectid"/>&projectname=<s:property value="projectname"/>">View/Edit Timesheet</a></h3> </td>
  
 </tr>

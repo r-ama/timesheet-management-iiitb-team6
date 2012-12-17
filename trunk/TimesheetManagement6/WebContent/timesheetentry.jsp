@@ -5,6 +5,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
+<link rel="button.css" type="text/css">
 <style type="text/css">
 table.pretty {
   margin: 10em 10em 10em 10em;
@@ -76,7 +77,7 @@ table.pretty caption {
 <s:hidden property="timesheet"/>
  <table align="center"><tr>
  <td>
- <input type="submit" value="Save" size="10" style="width:100px"/>
+ <input type="submit" value="Save" size="10" style="width:100px" class="classname"/>
  </td>
  </tr></table>
 </s:form>
