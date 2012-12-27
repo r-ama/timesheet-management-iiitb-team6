@@ -176,7 +176,10 @@ public class TimesheetAction extends ActionSupport {
             	 sum+=Integer.parseInt(rs.getString(1));
             }	
             else
+            {
             	tm.day.add("0");
+            	tm.approvalFlag.add(false);
+            }	
         }
         
         tm.setTotal(sum+"");

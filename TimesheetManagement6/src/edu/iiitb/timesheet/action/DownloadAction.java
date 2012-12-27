@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,6 +16,7 @@ import org.apache.tomcat.util.http.parser.ParseException;
 
 import com.mast.util.DB;
 import com.mast.util.POIExcelUtility;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class DownloadAction extends ActionSupport {
@@ -78,6 +80,11 @@ public class DownloadAction extends ActionSupport {
 	{
 		SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yyyy");
 		SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+		Map session = (Map) ActionContext.getContext().get("session");
+		String clientFlag="",userId;
+		if(session.get("clientFlag")!=null)
+			clientFlag = (String)session.get("clientFlag");
+		userId = (String)session.get("userid");
 		String sDate,eDate;
 		sDate=startDate;
 		eDate=endDate;
@@ -107,6 +114,8 @@ public class DownloadAction extends ActionSupport {
 	            HSSFSheet  sheet1    = workBook.getSheetAt (0);
 	            
 	            System.out.println("startDate:"+startDate+"endDate:"+endDate);
+	            
+	            
 				
 			String query = "select sum(te.hours_worked),e.empName from project p,allocation a,employee e,timesheetentry te";
 			query+=" where p.projectId = a.projectId";
@@ -116,7 +125,20 @@ public class DownloadAction extends ActionSupport {
 			query+=" and e.empId = te.empId";
 			query+=" and te.date_of_entry between '"+startDate+"' and '"+endDate+"'";
 			query+=" and te.approval_flag = 'Y'";
+			if(clientFlag.equals("Y"))
+			query+=" and p.clientId ="+userId;
+			else
+			{
+				query+= " and p.projectid in(select distinct p1.projectId from employee u1,allocation a1,project p1";
+				query+=    " where p1.projectId = a1.projectId";
+				query+=		" and u1.empId = a1.empId";
+				query+=		" and u1.empId ="+userId+ ")";
+				
+			}	
+			
 			query+=" group by e.empName";
+			
+			
 			
 			ResultSet rs= DB.readFromBmtcDB(query);
 			int startRow=4;
@@ -165,7 +187,17 @@ public class DownloadAction extends ActionSupport {
 	            HSSFSheet  sheet1    = workBook.getSheetAt (0);
 				
 				String query = "select projectid,projectname,datediff(p.planned_end_date,p.planned_start_date) planned_duration,datediff(p.actual_end_date,p.actual_start_date) actual_duration,p.planned_effort,p.actual_effort from project p";
-				
+				if(clientFlag.equals("Y"))
+					query+=" where p.clientId ="+userId;
+				else
+				{
+					query+= " where p.projectid in(select distinct p1.projectId from employee u1,allocation a1,project p1";
+					query+=    " where p1.projectId = a1.projectId";
+					query+=		" and u1.empId = a1.empId";
+					query+=		" and u1.empId ="+userId+ ")";
+					
+				}	
+					
 				ResultSet rs=DB.readFromBmtcDB(query);
 				int startRow=4;
 				POIExcelUtility.writeXl(sheet1, 0, 1, sDate);
@@ -188,6 +220,10 @@ public class DownloadAction extends ActionSupport {
 						}
 						
 					}
+						POIExcelUtility.writeXl(sheet1, startRow, 7, ((rs.getDouble(6)-rs.getDouble(5))/rs.getDouble(6))*100);
+					if(rs.getString(4)!=null && rs.getString(3)!=null )
+						POIExcelUtility.writeXl(sheet1, startRow, 6,((rs.getDouble(4)-rs.getDouble(3))/rs.getDouble(4))*100);
+					
 					startRow++;
 					
 					
