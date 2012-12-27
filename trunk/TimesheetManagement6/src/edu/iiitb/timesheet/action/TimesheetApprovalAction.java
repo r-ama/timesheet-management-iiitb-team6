@@ -162,7 +162,7 @@ public class TimesheetApprovalAction extends ActionSupport {
 	    		SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
 	    		int sum=0;
 	    		for (Date day : days) {
-        	if(j==0)
+        	if(j==0 && i==0)
         		headerlist.add(sdf.format(day));
             System.out.println("date:"+sdf1.format(day));
             query = "select hours_worked,approval_flag from timesheetentry ty where ty.empId ="+userList.get(j);
@@ -181,11 +181,14 @@ public class TimesheetApprovalAction extends ActionSupport {
             	 sum+=Integer.parseInt(rs.getString(1));
             }	
             else
+            {
             	tm.day.add("0");
+            	tm.approvalFlag.add(false);
+            }	
         }
         
         tm.setTotal(sum+"");
-        if(j==0)
+        if(j==0 && i==0)
         {	
         	headerlist.add("Total");
         	headerlist.add("Approve");

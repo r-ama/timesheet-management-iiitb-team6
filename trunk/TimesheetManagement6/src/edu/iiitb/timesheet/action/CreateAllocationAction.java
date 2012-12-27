@@ -125,7 +125,20 @@ public class CreateAllocationAction extends ActionSupport {
 		}
 		
 		//Get all active projects
-		query = "select p.projectid,p.projectname from project p where p.actual_end_date is null or p.actual_end_date >NOW()";
+		query = "select p.projectid,p.projectname from project p where (p.actual_end_date is null or p.actual_end_date >NOW())";
+		
+		int roleId=(Integer)session.get("roleId");
+		
+		if(roleId==3)
+		{
+			
+			query+= " and p.projectid in(select distinct p1.projectId from employee u1,allocation a1,project p1";
+			query+=    " where p1.projectId = a1.projectId";
+			query+=		" and u1.empId = a1.empId";
+			query+=     " and a1.roleId = 3";
+			query+=		" and u1.empId ="+userid+ ")";
+		}
+		
 		rs=DB.readFromBmtcDB(query);
 		projList.add(new ProjectBean("0","--Select--"));
 		while(rs.next())

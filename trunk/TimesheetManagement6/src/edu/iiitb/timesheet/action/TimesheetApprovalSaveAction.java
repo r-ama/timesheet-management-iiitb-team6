@@ -52,6 +52,7 @@ public class TimesheetApprovalSaveAction extends ActionSupport {
 	public String execute()
 	{
 		System.out.println("size:"+timesheet.size());
+		
 		for(int i=0;i<timesheet.size();i++)
 		{
 			Map session = (Map) ActionContext.getContext().get("session");
@@ -104,6 +105,41 @@ public class TimesheetApprovalSaveAction extends ActionSupport {
 				}
 				}
 			}
+			String actual_start_date="",actual_effort="";
+			
+			String query1 = "select te.date_of_entry from  timesheetentry te";
+			query1+=" where te.projectId = " + projectid;
+			query1+=" and te.approval_flag='Y'";
+			query1+=" order by te.date_of_entry";
+			
+			ResultSet rs=DB.readFromBmtcDB(query1);
+			
+			if(rs.next())
+			{
+				actual_start_date = rs.getString(1);
+				
+			}
+			
+			query1="select sum(te.hours_worked) from  timesheetentry te";
+			query1+="	where te.projectId ="+projectid;
+			query1+=" and te.approval_flag='Y'";
+			
+			rs=DB.readFromBmtcDB(query1);
+			
+			if(rs.next())
+			{
+				actual_effort = rs.getString(1);
+				
+			}
+			
+			String updateQuery = "update project p set p.actual_start_date='"+actual_start_date+"',";
+			updateQuery += "p.actual_effort="+actual_effort;
+			updateQuery += " where p.projectId="+projectid;
+			
+			int rows=DB.update(updateQuery);
+			System.out.println("Update query:"+updateQuery);
+			System.out.println(rows);
+			
 			}
 			catch(Exception ex)
 			{

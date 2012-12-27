@@ -66,11 +66,20 @@ public class Login extends ActionSupport {
         	Map session = (Map) ActionContext.getContext().get("session");
         	session.put("userid", rs.getInt(1)+"");
         	session.put("username", username);
+        	session.put("clientFlag","N");
         	return "success";
         }
         
-        
-        
+        query = "select clientId from clientmst where clientName = '"+username+"' and clientPassword='"+password+"'";
+        rs=DB.readFromBmtcDB(query);
+        if(rs.next())
+        {
+        	Map session = (Map) ActionContext.getContext().get("session");
+        	session.put("userid", rs.getInt(1)+"");
+        	session.put("username", username+"(Client)");
+        	session.put("clientFlag","Y");
+        	return "success";
+        }
         
         addActionError(getText("Incorrect user id and / or password!"));
         return "error";

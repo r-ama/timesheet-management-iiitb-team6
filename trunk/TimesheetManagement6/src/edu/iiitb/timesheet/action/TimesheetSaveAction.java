@@ -62,11 +62,11 @@ public class TimesheetSaveAction extends ActionSupport {
 		    projectid = timesheet.get(i).getProjectid();
 		    projectname = timesheet.get(i).getProjectName();
 			ArrayList<String> day=timesheet.get(i).getDay();
-			System.out.println(day.size()+" "+projectid+" "+day.get(0));
+			
 			ArrayList<String> date=timesheet.get(i).getDate();
 			try
 			{
-			for(int count=0;count<day.size();count++)
+			for(int count=0;count<date.size();count++)
 			{
 				String query = "select 1 from timesheetentry t where t.empId ="+userid;
 				query+=" and t.projectid ="+projectid;
