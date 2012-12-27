@@ -70,10 +70,7 @@ If you prefer you could right or left align it.*/
 		<td  width="2000px" height="100px" bgcolor="#3BB9FF" align="center" colspan="1"><tiles:insertAttribute name="header"  />
 		</td>
 	</tr>
-	<tr>
-		<td width="2000px"><tiles:insertAttribute name="menu" /></td>
-		
-	</tr>
+	
 	<tr>
 	    <td class="contaier" height="500px"><tiles:insertAttribute name="body"  /></td>
 	</tr>
