@@ -8,12 +8,11 @@
 <script language="javascript" type="text/javascript">
 function download(reportId){
 	  
-	alert(reportId);
+	
 	var start=document.getElementById("start");
 	var end=document.getElementById("end");
 	document.getElementById("report").value = reportId;
 	var link="fileDownload.action?a=a&reportType="+reportId+"&startDate="+start.value+"&endDate="+end.value;
-	alert(link);
 	document.getElementById("myform").action=link;
 	document.getElementById("myform").method="GET";
 	document.getElementById("myform").submit();

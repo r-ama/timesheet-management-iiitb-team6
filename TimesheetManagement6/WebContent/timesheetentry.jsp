@@ -33,13 +33,13 @@ table.pretty caption {
 <body>
 <h3 align="left" >Welcome,<s:property value="username"/></h3>
 
-<s:form action="timesheet" method="POST">
+<s:form action="timesheet" method="GET">
 
   <input type="submit" value="Prev" name="commandButton" size="10" style="width:50px" />
   <input type="submit" value="Next" name="commandButton" size="10" style="width:50px"/>
 </s:form>
 
-<s:form action="timesheetsave" method="POST"> 
+<s:form action="timesheetsave" method="GET"> 
 
  
 <table class="pretty">
@@ -60,7 +60,11 @@ table.pretty caption {
 <td><h3> <s:property value="projectName"/></h3> </td>
 <s:iterator value="day" status="mystat" var="day">
  <td><s:textfield name="timesheet[%{#outerstat.index}].day[%{#mystat.index}]" value="%{day[#mystat.index]}" disabled="%{approvalFlag[#mystat.index]}" size="2" cssClass="label" theme="simple"/></td>
- 
+    <s:if test="%{approvalFlag[#mystat.index]}">
+    
+     <s:hidden name="timesheet[%{#outerstat.index}].day[%{#mystat.index}]" value="%{day[#mystat.index]}"/>
+    </s:if> 
+     
  	<s:hidden name="timesheet[%{#outerstat.index}].date[%{#mystat.index}]" value="%{date[#mystat.index]}"/>
 </s:iterator> 
 <td><h3> <s:property value="total"/></h3> </td>
