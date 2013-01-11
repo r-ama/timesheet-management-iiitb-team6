@@ -24,7 +24,7 @@
 	float: left;
 	text-transform: uppercase;
 	font-family: 'Helvetica Neue',helvetica,'microsoft sans serif',arial,sans-serif;
-	font-size: 70%;
+	font-size: 90%;
 	color: #FFFFFF;
 	text-decoration: none;
 }
@@ -48,5 +48,10 @@
 #cssmenu ul li a:hover span,
 #cssmenu ul li.active a span {
 	background: transparent url(bg-bubplastic-h-aqua.gif) top right no-repeat;
+}
+
+#text
+{
+	
 }
 

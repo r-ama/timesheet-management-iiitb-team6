@@ -38,7 +38,7 @@ If you prefer you could right or left align it.*/
 
 /*Full width footer*/	
 #footer {
-	background:#3BB9FF;
+	background: #3BB9FF;
 	padding:10px;
 	text-align:center;
 	}

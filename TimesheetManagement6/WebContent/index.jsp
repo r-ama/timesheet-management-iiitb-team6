@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Book Store</title>
+<title>Timesheet Management</title>
+<SCRIPT type="text/javascript">
+function callAction(){
+       window.location="admin.action";
+}
+</SCRIPT>
 </head>
-<body>
-Welcome to the Book Store!
+<body onload = "callAction();">  
 
 </body>
 </html>

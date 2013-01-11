@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: black;
+	text-align: left;
+}
+
+h1 {
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	color: black;
+}
+
+h2 {
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	color: black;
+}
+
+
+
+.errors {
+	
+	
+	font-size: 13px;
+	style ="height: 1.5em;
+	width: 7em";
+	padding: 1px;
+	font-weight: bold;	
+	color: #990000;
+	position:absolute;
+	top:180px;
+	left:1px;
+}
+
+.errors li {
+	list-style: none;
+}
+
+th {
+	border-bottom: navy solid thin;
+	border-top: navy solid thin;
+	border-left: none;
+	border-right: none;
+	font-size: smaller;
+}
+
+#mysubmit {
+	width: 70px;
+	height: 27px;
+	border: none;
+	background-image: url(images/button.png);
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	style ="height: 1.5em;
+	width: 7em;
+	font-size: 20px";
+	padding: 10px;
+	color: white;
+	font-weight: bold;
+}
+
