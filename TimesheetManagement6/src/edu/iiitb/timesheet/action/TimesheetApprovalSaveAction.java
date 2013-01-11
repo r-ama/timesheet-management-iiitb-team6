@@ -16,6 +16,14 @@ public class TimesheetApprovalSaveAction extends ActionSupport {
 	String userid="";
 	String projectid="";
 	String projectname="";
+    String sesUserid="";
+	public String getSesUserid() {
+		return sesUserid;
+	}
+
+	public void setSesUserid(String sesUserid) {
+		this.sesUserid = sesUserid;
+	}
 
 	public String getProjectid() {
 		return projectid;
@@ -52,12 +60,15 @@ public class TimesheetApprovalSaveAction extends ActionSupport {
 	public String execute()
 	{
 		System.out.println("size:"+timesheet.size());
+		Map session = (Map) ActionContext.getContext().get("session");
+		
+		if(session.get("userid")==null)
+			return "initial_entry";
+		
+		sesUserid = session.get("userid")+"";
 		
 		for(int i=0;i<timesheet.size();i++)
 		{
-			Map session = (Map) ActionContext.getContext().get("session");
-			if(session.get("userid")==null)
-				return "initial_entry";
 			
 			userid = timesheet.get(i).getUserid();
 		    projectid = timesheet.get(i).getProjectid();
@@ -95,9 +106,6 @@ public class TimesheetApprovalSaveAction extends ActionSupport {
 					updateQuery+=" and t.projectid ="+projectid;
 					updateQuery+=" and t.date_of_entry ='"+date.get(count)+"'";
 					
-				
-					
-				
 				
 				System.out.println("update query:"+updateQuery);
 				int rows=DB.update(updateQuery);
@@ -139,6 +147,10 @@ public class TimesheetApprovalSaveAction extends ActionSupport {
 			int rows=DB.update(updateQuery);
 			System.out.println("Update query:"+updateQuery);
 			System.out.println(rows);
+			
+			updateQuery = "delete from worklist where userid="+sesUserid+" and empId="+userid;
+			rows=DB.update(updateQuery);
+			System.out.println("Update query:"+updateQuery);
 			
 			}
 			catch(Exception ex)

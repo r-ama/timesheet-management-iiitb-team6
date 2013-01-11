@@ -110,8 +110,7 @@ public class CreateAllocationAction extends ActionSupport {
 		try
 		{
 		String query = "select empId,empName from employee";
-		ResultSet rs=DB.readFromBmtcDB(query);
-		
+		ResultSet rs=DB.readFromBmtcDB(query);		
 		
 		
 		while(rs.next())
@@ -140,7 +139,7 @@ public class CreateAllocationAction extends ActionSupport {
 		}
 		
 		rs=DB.readFromBmtcDB(query);
-		projList.add(new ProjectBean("0","--Select--"));
+		projList.add(new ProjectBean("0","--Select Project--"));
 		while(rs.next())
 		{
             ProjectBean ub=new ProjectBean();

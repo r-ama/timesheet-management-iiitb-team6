@@ -70,9 +70,25 @@ public class TimesheetAction extends ActionSupport {
 	
 		
 		headerlist=new ArrayList<String>();
-	   	headerlist.add("Projectid");
-	   	headerlist.add("ProjectName");
+	   	
 	   	Map session = (Map) ActionContext.getContext().get("session");
+	   	
+	   	if(session.get("userid")==null)
+			return "initial_entry";
+		
+	   	
+	   	if(session.get("err_timesheetentry").equals("true"))
+	   	{
+	   	addActionError(getText("Wrong Timesheet Entry! Please Re-Enter"));
+	   	session.put("err_timesheetentry", "false");
+	   	}
+		
+			username = session.get("username")+"";
+			userid = session.get("userid")+"";
+			
+	
+			
+			
 	   	Date refDate;
 	   	if(session.get("curdate")==null)
 	   	{
@@ -104,12 +120,7 @@ public class TimesheetAction extends ActionSupport {
 	   	refDate = cal.getTime(); 
 	   	
 	   	session.put("curdate", refDate);
-		if(session.get("userid")==null)
-			return "initial_entry";
 		
-		
-			username = session.get("username")+"";
-			userid = session.get("userid")+"";
 			
 		try
 		{
@@ -118,10 +129,17 @@ public class TimesheetAction extends ActionSupport {
 			 ArrayList<String> projectnamelist=new ArrayList<String>();
 	    if(projectid==null || projectid.equals(""))
 	    {
-	    	String query = "select distinct p.projectid,p.projectname from project p,employee u,allocation a";
+	    	    
+	    	 Date[] day1 = getDaysOfWeek(refDate, Calendar.MONDAY);
+	    	 SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
+	    	 System.out.println("last sunday:"+sdf1.format(day1[6]));
+	    	
+	    	
+	    	    String query = "select distinct p.projectid,p.projectname from project p,employee u,allocation a";
 	    		query+=" where p.projectid = a.projectid";
 	    		query+=" and a.empId ="+userid;
-	    		query+=" and a.allocation_end_date >NOW()";
+	    		query+=" and a.allocation_end_date >=NOW()";
+	    		query+=" and a.allocation_start_date <='"+sdf1.format(day1[6])+"'";
 	    		
 	    	ResultSet rs= DB.readFromBmtcDB(query);
 	    	
@@ -138,10 +156,34 @@ public class TimesheetAction extends ActionSupport {
 	    else
 	    {
 	    	
-	    	projectidlist.add(projectid);
-    		projectnamelist.add(projectname);
+	    	 Date[] day1 = getDaysOfWeek(refDate, Calendar.MONDAY);
+	    	 SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
+	    	 System.out.println("last sunday:"+sdf1.format(day1[6]));
+	    	
+	    	
+	    	    String query = "select distinct p.projectid,p.projectname from project p,employee u,allocation a";
+	    		query+=" where p.projectid = a.projectid";
+	    		query+=" and p.projectid="+projectid;
+	    		query+=" and a.empId ="+userid;
+	    		query+=" and a.allocation_end_date >=NOW()";
+	    		query+=" and a.allocation_start_date <='"+sdf1.format(day1[6])+"'";
+	    		
+	    	ResultSet rs= DB.readFromBmtcDB(query);
+	    	
+	    	while(rs.next())
+	    	{
+	    		projectidlist.add(rs.getString(1));
+	    		projectnamelist.add(rs.getString(2));
+	    		
+	    		
+	    	}
 	    }
-		
+		if(projectidlist.size()>0)
+		{
+			headerlist.add("Project Id");
+		   	headerlist.add("Project Name");
+		}
+	    
 	    for(int i=0;i<projectidlist.size();i++)
 	    {	
 	    
