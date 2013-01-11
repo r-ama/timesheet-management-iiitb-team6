@@ -20,6 +20,7 @@
 
 		<action name="admin" class="edu.iiitb.timesheet.action.Login">
 			<result name="initial_entry" type="tiles">admin</result>
+			<result name="passwordentry" type="tiles">passwordentry</result>
 			<result name="success" type="redirectAction">Home</result>
 			<result name="error" type="tiles">admin</result>
 		</action>
@@ -27,6 +28,7 @@
 		<action name="Home" class="edu.iiitb.timesheet.action.HomeAction">
 			<result name="initial_entry" type="redirectAction">admin</result>
 			<result name="success" type="tiles">home</result>
+			<result name="client_home" type="tiles">client_home</result>
 			<result name="error" type="redirectAction">admin</result>
 		</action>
 
@@ -51,8 +53,8 @@
 			<result name="initial_entry" type="redirectAction">admin</result>
 			<result name="success" type="tiles">timesheetapprove</result>
 			<result name="error" type="redirectAction">admin</result>
+			<result name="noTimesheet" type="tiles">blanktimesheet</result>
 		</action>
-
 
 		<action name="timesheetapsave"
 			class="edu.iiitb.timesheet.action.TimesheetApprovalSaveAction">
@@ -98,6 +100,12 @@
 			<result name="error" type="redirectAction">admin</result>
 		</action>
 		
+		<action name="worklist" class="edu.iiitb.timesheet.action.WorklistAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">worklist</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		
 		<action name="fileDownload" class="edu.iiitb.timesheet.action.DownloadAction">
             <result type="stream" name="success">
                 <param name="inputName">fileInputStream</param>
@@ -109,6 +117,70 @@
             
             <result name="error" type="redirectAction">admin</result>
         </action>
+        
+         <action name="createproject" class="edu.iiitb.timesheet.action.CreateProjectAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">createproject</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		
+		 <action name="closeproject" class="edu.iiitb.timesheet.action.ProjectCloseAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">closeproject</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		
+		<action name="closeprojectsave"
+			class="edu.iiitb.timesheet.action.CloseProjectSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="redirectAction">closeproject</result>
+			<result name="error" type="redirectAction">closeproject</result>
+		</action>
+		
+		<action name="projectsave"
+			class="edu.iiitb.timesheet.action.ProjectSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">projectlist</result>
+			<result name="error" type="redirectAction">createproject</result>
+		</action>
+		
+		<action name="createuser" class="edu.iiitb.timesheet.action.CreateUserAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">createuser</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		
+		<action name="usersave"
+			class="edu.iiitb.timesheet.action.UserSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">userlist</result>
+			<result name="error" type="tiles">createuser</result>
+		</action>
+		
+		<action name="createclient" class="edu.iiitb.timesheet.action.CreateClientAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">createclient</result>
+			<result name="error" type="redirectAction">admin</result>
+		</action>
+		
+		<action name="clientsave"
+			class="edu.iiitb.timesheet.action.ClientSaveAction">
+			<result name="initial_entry" type="redirectAction">admin</result>
+			<result name="success" type="tiles">clientlist</result>
+			<result name="error" type="redirectAction">createclient</result>
+		</action>
 
+	<action name="passwordentry" class="edu.iiitb.timesheet.action.PasswordEntryAction">
+		<result name="initial_entry" type="redirectAction">admin</result>
+		<result name="success" type="tiles">passwordentry</result>
+		<result name="error" type="redirectAction">admin</result>
+	</action>
+	
+	
+   <action name="passwordsave" class="edu.iiitb.timesheet.action.PasswordSaveAction">
+		<result name="initial_entry" type="redirectAction">admin</result>
+		<result name="success" type="redirectAction">admin</result>
+		<result name="error" type="redirectAction">passwordentry</result>
+	</action>
 	</package>
 </struts>
