@@ -63,5 +63,4 @@ public class TimesheetEntryBean {
 		this.projectName = projectName;
 	}
 	
-
 }
