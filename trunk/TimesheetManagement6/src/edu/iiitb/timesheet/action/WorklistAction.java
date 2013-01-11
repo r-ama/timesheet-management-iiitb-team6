@@ -8,18 +8,31 @@ import com.mast.util.DB;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ReportAction extends ActionSupport {
+import edu.iiitb.timesheet.model.WorkListBean;
+
+public class WorklistAction extends ActionSupport {
 	
 	String userid;
 	String username;
-	ArrayList<ReportBean> reportList=new ArrayList<ReportBean>();
+	ArrayList<WorkListBean> worklist=new ArrayList<WorkListBean>();
+	String action;
 	
-	public ArrayList<ReportBean> getReportList() {
-		return reportList;
+	
+
+	public String getAction() {
+		return action;
 	}
 
-	public void setReportList(ArrayList<ReportBean> reportList) {
-		this.reportList = reportList;
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public ArrayList<WorkListBean> getWorklist() {
+		return worklist;
+	}
+
+	public void setWorklist(ArrayList<WorkListBean> worklist) {
+		this.worklist = worklist;
 	}
 
 	public String getUsername() {
@@ -47,45 +60,27 @@ public class ReportAction extends ActionSupport {
 		String query="";
 			username = session.get("username")+"";
 			userid = session.get("userid")+"";
-		String roleId = session.get("roleId")+"";	
 		
-		if (session.get("clientFlag") != null)
-			clientFlag = session.get("clientFlag") + "";
+		query = "select text,action from worklist where userid="+userid;
 		
-		if(clientFlag.equals("N"))
-		{	
-			query="select r1.reportId,r1.ReportName from Report r1,rolemst r";
-			query+=" where r1.Role = r.roleFlag";
-			query+=" and r.roleId = "+roleId;
-		}	
-		
-		else
-		{
-			query="select r1.reportId,r1.ReportName from Report r1";
-			query+=" where r1.Role = 'Client'";
-			
-			
-		}	
-		
-		ResultSet rs= DB.readFromBmtcDB(query);
+		ResultSet rs = DB.readFromBmtcDB(query);
 		try
 		{
 		while(rs.next())
-		{	
-		
-		reportList.add(new ReportBean(rs.getString(1),rs.getString(2)));
-		
-		
+		{
+			worklist.add(new WorkListBean(rs.getString(1),rs.getString(2)));
+			
+			
 		}
 		}
 		catch(Exception ex)
 		{
+			ex.printStackTrace();
 			
-			return "initial_entry";
 		}
-		
 		return "success";
 		
 	}
+
 
 }

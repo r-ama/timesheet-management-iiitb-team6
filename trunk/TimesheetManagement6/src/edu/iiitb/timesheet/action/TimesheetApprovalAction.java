@@ -15,7 +15,6 @@ import edu.iiitb.timesheet.model.TimesheetEntryBean;
 
 public class TimesheetApprovalAction extends ActionSupport {
 
-	
 	ArrayList<String> headerlist;
 	ArrayList<TimesheetEntryBean> timesheet;
 	String username;
@@ -54,8 +53,6 @@ public class TimesheetApprovalAction extends ActionSupport {
 		this.timesheet = timesheet;
 	}
 
-	
-
 	public ArrayList<String> getHeaderlist() {
 		return headerlist;
 	}
@@ -64,152 +61,147 @@ public class TimesheetApprovalAction extends ActionSupport {
 		this.headerlist = headerlist;
 	}
 
-	public String execute()
-	{
-	   
-	
-		
-		headerlist=new ArrayList<String>();
+	public String execute() {
+
+		headerlist = new ArrayList<String>();
 		headerlist.add("Employee Name");
-	   	headerlist.add("Projectid");
-	   	headerlist.add("ProjectName");
-	   	Map session = (Map) ActionContext.getContext().get("session");
-	   	Date refDate;
-	   	if(session.get("curdate")==null)
-	   	{
-	   		refDate=new Date();
-	   	}
-	   	else
-	   	{
-	   		refDate=(Date)session.get("curdate");
-	   		
-	   	}
-	   	
-	   	Calendar cal = Calendar.getInstance();  
-	   	cal.setTime(refDate);
-	   	System.out.println("button:"+commandButton);
-	   	if(this.commandButton.equals("Prev"))
-	   	{	
-	   		cal.add(Calendar.DATE, -7); // add 10 days
-	   		this.commandButton="";
-	   	}
-	   	else if(this.commandButton.equals("Next"))
-	   	{
-	   		Calendar now=Calendar.getInstance();
-	   		cal.add(Calendar.DATE, 7); // add 10 days
-	   		if(cal.after(now))
-	   			cal=now;
-	   		this.commandButton="";
-	   	}
-	   	  
-	   	refDate = cal.getTime(); 
-	   	
-	   	session.put("curdate", refDate);
-		if(session.get("userid")==null)
-			return "initial_entry";
-		
-		
-			username = session.get("username")+"";
-			userid = session.get("userid")+"";
-			
-		try
-		{
-			 timesheet = new ArrayList<TimesheetEntryBean>();
-			 ArrayList<String> userList = new ArrayList<String>();
-			 ArrayList<String> usernameList = new ArrayList<String>();
-			 String query = "select distinct u.empId,u.empName from employee u,allocation a where u.empId=a.empId"; 
-				 	query+= " and a.supervisorId= "+userid;
-			 ResultSet rs=DB.readFromBmtcDB(query);
-			 while(rs.next())
-			 {
-				 userList.add(rs.getString(1));
-				 usernameList.add(rs.getString(2));
-			 }
-			 
-			 for(int j=0;j<userList.size();j++)
-			 {	 
-				 ArrayList<String> projectidlist=new ArrayList<String>();
-				 ArrayList<String> projectnamelist=new ArrayList<String>();
-				 query = "select distinct p.projectid,p.projectname from project p,employee u,allocation a";
-				 		query+=" where p.projectid = a.projectid";
-				 		query+=" and a.empId ="+userList.get(j);
-				 		query+=" and a.supervisorId="+userid;
-				 		query+=" and a.allocation_end_date >NOW()";
-	    		
-	    	     rs= DB.readFromBmtcDB(query);
-	    	
-	    	while(rs.next())
-	    	{
-	    		projectidlist.add(rs.getString(1));
-	    		projectnamelist.add(rs.getString(2));
-	    		
-	    		
-	    	}
-	    	
-	    
-		
-	    	for(int i=0;i<projectidlist.size();i++)
-	    	{	
-	    
-	    		TimesheetEntryBean tm=new TimesheetEntryBean();
-	    		tm.setProjectid(projectidlist.get(i));
-	    		tm.setProjectName(projectnamelist.get(i));
-	    		tm.setUserid(userList.get(j));
-	    		tm.setUsername(usernameList.get(j));
-	    
-	    		Date[] days = getDaysOfWeek(refDate, Calendar.MONDAY);
-	    		SimpleDateFormat sdf=new SimpleDateFormat("E MMM dd yyyy");
-	    		SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
-	    		int sum=0;
-	    		for (Date day : days) {
-        	if(j==0 && i==0)
-        		headerlist.add(sdf.format(day));
-            System.out.println("date:"+sdf1.format(day));
-            query = "select hours_worked,approval_flag from timesheetentry ty where ty.empId ="+userList.get(j);
-    	    query+=" and ty.projectid ="+projectidlist.get(i);
-            query+= " and ty.date_of_entry='"+sdf1.format(day)+"'";
-            tm.date.add(sdf1.format(day));
-            rs=DB.readFromBmtcDB(query);
-           
-            if(rs.next())
-            {	
-            	tm.day.add(rs.getString(1));
-            	if(rs.getString(2).equals("Y"))
-            		tm.approvalFlag.add(true);
-            	else
-            		tm.approvalFlag.add(false);
-            	 sum+=Integer.parseInt(rs.getString(1));
-            }	
-            else
-            {
-            	tm.day.add("0");
-            	tm.approvalFlag.add(false);
-            }	
-        }
-        
-        tm.setTotal(sum+"");
-        if(j==0 && i==0)
-        {	
-        	headerlist.add("Total");
-        	headerlist.add("Approve");
-        }	
-        
-        
-        timesheet.add(tm);
-	    	}
-	    }
-        System.out.println("timesheet size:"+timesheet.size());
-        return "success";
+		headerlist.add("Projectid");
+		headerlist.add("ProjectName");
+		Map session = (Map) ActionContext.getContext().get("session");
+		Date refDate;
+		if (session.get("curdate") == null) {
+			refDate = new Date();
+		} else {
+			refDate = (Date) session.get("curdate");
+
 		}
-		catch(Exception ex)
-		{
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(refDate);
+		System.out.println("button:" + commandButton);
+		if (this.commandButton.equals("Prev")) {
+			cal.add(Calendar.DATE, -7); // add 10 days
+			this.commandButton = "";
+		} else if (this.commandButton.equals("Next")) {
+			Calendar now = Calendar.getInstance();
+			cal.add(Calendar.DATE, 7); // add 10 days
+			if (cal.after(now))
+				cal = now;
+			this.commandButton = "";
+		}
+
+		refDate = cal.getTime();
+
+		session.put("curdate", refDate);
+		if (session.get("userid") == null)
+			return "initial_entry";
+
+		username = session.get("username") + "";
+		userid = session.get("userid") + "";
+		
+		Date[] days = getDaysOfWeek(refDate, Calendar.MONDAY);
+		SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); 
+
+		try {
+			timesheet = new ArrayList<TimesheetEntryBean>();
+			ArrayList<String> userList = new ArrayList<String>();
+			ArrayList<String> usernameList = new ArrayList<String>();
+			String query = "select distinct u.empId,u.empName from employee u,allocation a where u.empId=a.empId";
+			query += " and a.supervisorId= " + userid;
+			ResultSet rs = DB.readFromBmtcDB(query);
+			while (rs.next()) {
+				userList.add(rs.getString(1));
+				usernameList.add(rs.getString(2));
+			}
+			
+
+			for (int j = 0; j < userList.size(); j++) {
+				ArrayList<String> projectidlist = new ArrayList<String>();
+				ArrayList<String> projectnamelist = new ArrayList<String>();
+				query = "select distinct p.projectid,p.projectname from project p,employee u,allocation a";
+				query += " where p.projectid = a.projectid";
+				query += " and a.empId =" + userList.get(j);
+				query += " and a.supervisorId=" + userid;
+				query += " and a.allocation_end_date >NOW()";
+
+				rs = DB.readFromBmtcDB(query);
+
+				while (rs.next()) {
+					projectidlist.add(rs.getString(1));
+					projectnamelist.add(rs.getString(2));
+
+				}
+
+				for (int i = 0; i < projectidlist.size(); i++) {
+
+					TimesheetEntryBean tm = new TimesheetEntryBean();
+					tm.setProjectid(projectidlist.get(i));
+					tm.setProjectName(projectnamelist.get(i));
+					tm.setUserid(userList.get(j));
+					tm.setUsername(usernameList.get(j));
+
+					
+					int sum = 0;
+					for (Date day : days) {
+						
+						System.out.println("date:" + sdf1.format(day));
+						query = "select hours_worked,approval_flag from timesheetentry ty where ty.empId ="
+								+ userList.get(j);
+						query += " and ty.projectid =" + projectidlist.get(i);
+						query += " and ty.date_of_entry='" + sdf1.format(day)
+								+ "'";
+						tm.date.add(sdf1.format(day));
+						rs = DB.readFromBmtcDB(query);
+
+						if (rs.next()) {
+							tm.day.add(rs.getString(1));
+							if (rs.getString(2).equals("Y"))
+								tm.approvalFlag.add(true);
+							else
+								tm.approvalFlag.add(false);
+							sum += Integer.parseInt(rs.getString(1));
+						} else {
+							tm.day.add("0");
+							tm.approvalFlag.add(false);
+						}
+					}
+
+					tm.setTotal(sum + "");
+				
+
+                   	   	
+
+					timesheet.add(tm);
+				}
+			}
+			System.out.println("timesheet size:" + timesheet.size());
+			
+			for(Date day:days)
+			{
+				headerlist.add(sdf.format(day));
+				
+			}
+			
+			headerlist.add("Total");
+			headerlist.add("Approve");
+			
+			if(timesheet.size()==0)
+			{
+				System.out.println("returning no timesheet");
+				return "noTimesheet";
+			}
+			else
+			{
+				return "success";				
+			}
+			
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "error";
-			
+
 		}
-	   	
-	   	
-		
+
 	}
 
 	private Date[] getDaysOfWeek(Date refDate, int firstDayOfWeek) {
