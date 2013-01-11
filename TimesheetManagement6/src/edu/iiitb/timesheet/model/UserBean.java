@@ -1,7 +1,6 @@
 package edu.iiitb.timesheet.model;
 
-public class UserBean {
-	
+public class UserBean {	
 	
 	public UserBean(){}
 	public UserBean(String userid, String username) {

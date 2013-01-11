@@ -10,9 +10,7 @@ public class ProjectBean {
 	}
 	public ProjectBean() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	
+	}	
 	
 	String projectid;
 	
@@ -71,5 +69,21 @@ public class ProjectBean {
 	String actual_end_date;
 	String planned_effort;
 	String actual_effort;
+	String clientname;
+	boolean check;
+
+	public boolean isCheck() {
+		return check;
+	}
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
+	public String getClientname() {
+		return clientname;
+	}
+	public void setClientname(String clientname) {
+		this.clientname = clientname;
+	}
+	
 	
 }
