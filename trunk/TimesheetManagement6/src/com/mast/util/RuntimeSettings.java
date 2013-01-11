@@ -5,7 +5,7 @@ public class RuntimeSettings {
 	public static final String VERSION_ID = " version 0.1"
 			+ " dated October 28, 2012";
 	public static final String SERVER_IP = "localhost";
-	static String databaseName = "timesheet1";
+	static String databaseName = "timesheet";
 	static String dbUserID = "root";
 	// "" for apple Macbook Air
 	static String dbPassword = "root"; 
