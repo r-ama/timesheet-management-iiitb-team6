@@ -1,0 +1,60 @@
+table.imagetable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 9px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+
+table.imagetable th {
+	background: url(images/th.png);
+	border-width: 1px;
+	border-style: solid;
+	border-color: #999999;
+	text-align: center;	
+}
+
+table.imagetable td {
+	background: #dcddc0 url(images/cell-grey.jpg);
+	border-width: 1px;
+	border-style: solid;
+	border-color: #999999;
+	text-align: center;
+}
+
+h1 {
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	color: black;
+}
+
+h2 {
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	color: black;
+}
+
+table.norm {
+	font-family: verdana, arial, sans-serif;
+	font-size: 8px;
+	border-collapse: collapse;
+	position: absolute;
+	top: 200px;
+	left: 425px;
+}
+
+table.pager {
+	font-family: verdana, arial, sans-serif;
+	font-size: 9px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+
+table.pager th {
+	background: url(th.png);
+	border-width: 1px;
+	border-style: solid;
+	border-color: #999999;
+	text-align: center;
+}
